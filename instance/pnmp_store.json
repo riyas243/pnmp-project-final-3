@@ -1,0 +1,1214 @@
+{
+  "users": [
+    {
+      "id": "usr-demo-1",
+      "name": "Riyas Demo",
+      "email": "demo@pnmp.com",
+      "password_hash": "Password123!",
+      "language": "en",
+      "theme": "light",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "usr-1791265347667",
+      "name": "Riyas",
+      "email": "lovelyriyas20@gmail.com",
+      "password_hash": "Password123!",
+      "language": "en",
+      "theme": "light",
+      "created_at": "2026-10-06T05:42:27.667Z"
+    }
+  ],
+  "family_members": [
+    {
+      "id": "mem-demo-riyas",
+      "user_id": "usr-demo-1",
+      "name": "Riyas Demo",
+      "relationship": "Self",
+      "is_primary": true,
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "mem-demo-sarah",
+      "user_id": "usr-demo-1",
+      "name": "Sarah (Spouse)",
+      "relationship": "Spouse",
+      "is_primary": false,
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "mem-1791265347667",
+      "user_id": "usr-1791265347667",
+      "name": "Riyas",
+      "relationship": "Self",
+      "is_primary": true,
+      "created_at": "2026-10-06T05:42:27.667Z"
+    }
+  ],
+  "profiles": [
+    {
+      "member_id": "mem-demo-riyas",
+      "age": 25,
+      "gender": "Male",
+      "height_cm": 175,
+      "weight_kg": 72,
+      "activity_level": "Moderately Active",
+      "dietary_preference": "Vegetarian",
+      "allergies": "None",
+      "medical_conditions": "None",
+      "fitness_goal": "Weight Loss",
+      "target_weight_kg": 68,
+      "updated_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "member_id": "mem-demo-sarah",
+      "age": 24,
+      "gender": "Female",
+      "height_cm": 162,
+      "weight_kg": 56,
+      "activity_level": "Lightly Active",
+      "dietary_preference": "Vegetarian",
+      "allergies": "Peanuts",
+      "medical_conditions": "None",
+      "fitness_goal": "Weight Maintenance",
+      "target_weight_kg": 55,
+      "updated_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "member_id": "mem-1791265347667",
+      "age": 25,
+      "gender": "Male",
+      "height_cm": 172,
+      "weight_kg": 68,
+      "activity_level": "Moderately Active",
+      "dietary_preference": "Vegetarian",
+      "allergies": "",
+      "medical_conditions": "",
+      "fitness_goal": "Weight Maintenance",
+      "target_weight_kg": 68,
+      "updated_at": "2026-10-06T05:42:27.667Z"
+    }
+  ],
+  "meals": [
+    {
+      "member_id": "mem-demo-riyas",
+      "food_name": "Protein-Packed Oatmeal",
+      "serving_size": "1 bowl",
+      "calories": 450,
+      "protein": 30,
+      "carbohydrates": 55,
+      "fat": 10,
+      "fiber": 0,
+      "sugar": 0,
+      "ingredients": [],
+      "health_notes": "",
+      "warnings": "",
+      "meal_type": "Breakfast",
+      "confidence": 90,
+      "date": "2026-10-05",
+      "id": "meal-1791172127300-7ljw",
+      "created_at": "2026-10-05T03:48:47.300Z"
+    },
+    {
+      "id": "meal-init-1",
+      "member_id": "mem-demo-riyas",
+      "food_name": "Oatmeal with Almonds & Berries",
+      "serving_size": "1 bowl (250g)",
+      "calories": 320,
+      "protein": 11,
+      "carbohydrates": 48,
+      "fat": 9,
+      "fiber": 7,
+      "sugar": 8,
+      "ingredients": [
+        "rolled oats",
+        "almond milk",
+        "sliced almonds",
+        "blueberries"
+      ],
+      "health_notes": "Rich in dietary fiber and essential micronutrients.",
+      "warnings": "",
+      "meal_type": "Breakfast",
+      "confidence": 96,
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "meal-init-2",
+      "member_id": "mem-demo-riyas",
+      "food_name": "Greek Salad with Paneer & Olive Oil",
+      "serving_size": "1 plate (300g)",
+      "calories": 420,
+      "protein": 22,
+      "carbohydrates": 14,
+      "fat": 28,
+      "fiber": 4,
+      "sugar": 3,
+      "ingredients": [
+        "cucumbers",
+        "tomatoes",
+        "fresh paneer",
+        "extra virgin olive oil",
+        "oregano"
+      ],
+      "health_notes": "High in quality protein and heart-healthy fats.",
+      "warnings": "",
+      "meal_type": "Lunch",
+      "confidence": 94,
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "meal-init-3",
+      "member_id": "mem-demo-riyas",
+      "food_name": "Mixed Roasted Nuts & Green Tea",
+      "serving_size": "30g",
+      "calories": 180,
+      "protein": 6,
+      "carbohydrates": 8,
+      "fat": 15,
+      "fiber": 3,
+      "sugar": 1,
+      "ingredients": [
+        "walnuts",
+        "almonds",
+        "green tea"
+      ],
+      "health_notes": "Antioxidant-rich snack for sustained afternoon energy.",
+      "warnings": "",
+      "meal_type": "Evening Snack",
+      "confidence": 92,
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    }
+  ],
+  "water_logs": [
+    {
+      "id": "w-1",
+      "member_id": "mem-demo-riyas",
+      "amount_ml": 500,
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "w-2",
+      "member_id": "mem-demo-riyas",
+      "amount_ml": 750,
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "w-3",
+      "member_id": "mem-demo-riyas",
+      "amount_ml": 500,
+      "date": "2026-10-04",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "w-4",
+      "member_id": "mem-demo-riyas",
+      "amount_ml": 1000,
+      "date": "2026-10-04",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "w-5",
+      "member_id": "mem-demo-riyas",
+      "amount_ml": 750,
+      "date": "2026-10-03",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "w-1791172135885",
+      "member_id": "mem-demo-riyas",
+      "amount_ml": 500,
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:48:55.885Z"
+    }
+  ],
+  "sleep_logs": [
+    {
+      "id": "s-1",
+      "member_id": "mem-demo-riyas",
+      "hours": 7.5,
+      "quality": "Good",
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "s-2",
+      "member_id": "mem-demo-riyas",
+      "hours": 8,
+      "quality": "Excellent",
+      "date": "2026-10-04",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "s-3",
+      "member_id": "mem-demo-riyas",
+      "hours": 6.5,
+      "quality": "Fair",
+      "date": "2026-10-03",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    }
+  ],
+  "weight_logs": [
+    {
+      "id": "wt-1",
+      "member_id": "mem-demo-riyas",
+      "weight_kg": 74,
+      "date": "2026-09-14",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "wt-2",
+      "member_id": "mem-demo-riyas",
+      "weight_kg": 73.2,
+      "date": "2026-09-21",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "wt-3",
+      "member_id": "mem-demo-riyas",
+      "weight_kg": 72.5,
+      "date": "2026-09-28",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "wt-4",
+      "member_id": "mem-demo-riyas",
+      "weight_kg": 72,
+      "date": "2026-10-05",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    }
+  ],
+  "meal_plans": [
+    {
+      "id": "plan-1791172116996",
+      "member_id": "mem-demo-riyas",
+      "week_identifier": "Week of Oct 5, 2026",
+      "generated_date": "2026-10-05",
+      "weekly_plan": [
+        {
+          "day": "Monday",
+          "day_number": 1,
+          "meals": [
+            {
+              "meal_type": "Breakfast",
+              "food_name": "Protein-Packed Oatmeal",
+              "serving_size": "1 bowl",
+              "calories": 450,
+              "protein": 30,
+              "carbohydrates": 55,
+              "fat": 12,
+              "fiber": 8,
+              "sugar": 5,
+              "ingredients": [
+                "Rolled oats",
+                "Whey protein isolate",
+                "Almond milk",
+                "Chia seeds"
+              ],
+              "prep_notes": "Cook oats in almond milk and stir in protein powder after heating."
+            },
+            {
+              "meal_type": "Morning Snack",
+              "food_name": "Greek Yogurt with Berries",
+              "serving_size": "200g",
+              "calories": 200,
+              "protein": 18,
+              "carbohydrates": 20,
+              "fat": 5,
+              "fiber": 3,
+              "sugar": 12,
+              "ingredients": [
+                "Non-fat Greek yogurt",
+                "Blueberries"
+              ],
+              "prep_notes": "Mix yogurt with fresh berries."
+            },
+            {
+              "meal_type": "Lunch",
+              "food_name": "Quinoa and Black Bean Salad",
+              "serving_size": "400g",
+              "calories": 650,
+              "protein": 45,
+              "carbohydrates": 80,
+              "fat": 15,
+              "fiber": 15,
+              "sugar": 4,
+              "ingredients": [
+                "Quinoa",
+                "Black beans",
+                "Corn",
+                "Avocado",
+                "Lime juice"
+              ],
+              "prep_notes": "Toss all ingredients together with a squeeze of lime."
+            },
+            {
+              "meal_type": "Evening Snack",
+              "food_name": "Roasted Chickpeas",
+              "serving_size": "100g",
+              "calories": 250,
+              "protein": 12,
+              "carbohydrates": 30,
+              "fat": 8,
+              "fiber": 7,
+              "sugar": 1,
+              "ingredients": [
+                "Chickpeas",
+                "Olive oil",
+                "Paprika"
+              ],
+              "prep_notes": "Roast chickpeas in the oven until crispy."
+            },
+            {
+              "meal_type": "Dinner",
+              "food_name": "Tofu Stir-fry with Broccoli",
+              "serving_size": "450g",
+              "calories": 550,
+              "protein": 40,
+              "carbohydrates": 45,
+              "fat": 15,
+              "fiber": 6,
+              "sugar": 5,
+              "ingredients": [
+                "Extra firm tofu",
+                "Broccoli",
+                "Soy sauce",
+                "Sesame oil",
+                "Brown rice"
+              ],
+              "prep_notes": "Sauté tofu and broccoli with soy sauce and serve over brown rice."
+            }
+          ],
+          "daily_total": {
+            "calories": 2100,
+            "protein": 145,
+            "carbohydrates": 230,
+            "fat": 55
+          }
+        },
+        {
+          "day": "Tuesday",
+          "day_number": 2,
+          "meals": [
+            {
+              "meal_type": "Breakfast",
+              "food_name": "Scrambled Tofu with Spinach",
+              "serving_size": "300g",
+              "calories": 420,
+              "protein": 35,
+              "carbohydrates": 30,
+              "fat": 16,
+              "fiber": 5,
+              "sugar": 2,
+              "ingredients": [
+                "Tofu",
+                "Spinach",
+                "Nutritional yeast",
+                "Turmeric"
+              ],
+              "prep_notes": "Crumble tofu into a pan and sauté with spinach and spices."
+            },
+            {
+              "meal_type": "Morning Snack",
+              "food_name": "Almonds and Apple",
+              "serving_size": "1 serving",
+              "calories": 210,
+              "protein": 6,
+              "carbohydrates": 25,
+              "fat": 10,
+              "fiber": 5,
+              "sugar": 15,
+              "ingredients": [
+                "Almonds",
+                "Apple"
+              ],
+              "prep_notes": "Eat as a quick snack."
+            },
+            {
+              "meal_type": "Lunch",
+              "food_name": "Lentil Soup with Whole Grain Bread",
+              "serving_size": "500ml",
+              "calories": 600,
+              "protein": 40,
+              "carbohydrates": 75,
+              "fat": 12,
+              "fiber": 18,
+              "sugar": 3,
+              "ingredients": [
+                "Lentils",
+                "Carrots",
+                "Celery",
+                "Whole grain bread"
+              ],
+              "prep_notes": "Simmer lentils and vegetables until tender."
+            },
+            {
+              "meal_type": "Evening Snack",
+              "food_name": "Cottage Cheese with Pineapple",
+              "serving_size": "200g",
+              "calories": 220,
+              "protein": 25,
+              "carbohydrates": 20,
+              "fat": 4,
+              "fiber": 1,
+              "sugar": 15,
+              "ingredients": [
+                "Low-fat cottage cheese",
+                "Pineapple"
+              ],
+              "prep_notes": "Mix and serve chilled."
+            },
+            {
+              "meal_type": "Dinner",
+              "food_name": "Tempeh Power Bowl",
+              "serving_size": "400g",
+              "calories": 650,
+              "protein": 45,
+              "carbohydrates": 60,
+              "fat": 20,
+              "fiber": 10,
+              "sugar": 4,
+              "ingredients": [
+                "Tempeh",
+                "Sweet potato",
+                "Kale",
+                "Tahini dressing"
+              ],
+              "prep_notes": "Bake tempeh and sweet potato, serve over kale with tahini."
+            }
+          ],
+          "daily_total": {
+            "calories": 2100,
+            "protein": 151,
+            "carbohydrates": 210,
+            "fat": 62
+          }
+        },
+        {
+          "day": "Wednesday",
+          "day_number": 3,
+          "meals": [
+            {
+              "meal_type": "Breakfast",
+              "food_name": "Protein Smoothie",
+              "serving_size": "500ml",
+              "calories": 450,
+              "protein": 35,
+              "carbohydrates": 50,
+              "fat": 10,
+              "fiber": 7,
+              "sugar": 10,
+              "ingredients": [
+                "Whey protein",
+                "Banana",
+                "Spinach",
+                "Peanut butter",
+                "Almond milk"
+              ],
+              "prep_notes": "Blend all ingredients until smooth."
+            },
+            {
+              "meal_type": "Morning Snack",
+              "food_name": "Hard Boiled Eggs",
+              "serving_size": "2 eggs",
+              "calories": 150,
+              "protein": 12,
+              "carbohydrates": 1,
+              "fat": 10,
+              "fiber": 3,
+              "sugar": 2,
+              "ingredients": [
+                "Eggs"
+              ],
+              "prep_notes": "Boil eggs for 9 minutes."
+            },
+            {
+              "meal_type": "Lunch",
+              "food_name": "Chickpea Curry with Brown Rice",
+              "serving_size": "450g",
+              "calories": 650,
+              "protein": 30,
+              "carbohydrates": 90,
+              "fat": 15,
+              "fiber": 12,
+              "sugar": 3,
+              "ingredients": [
+                "Chickpeas",
+                "Coconut milk",
+                "Curry powder",
+                "Brown rice"
+              ],
+              "prep_notes": "Simmer chickpeas in curry sauce and serve over rice."
+            },
+            {
+              "meal_type": "Evening Snack",
+              "food_name": "Edamame",
+              "serving_size": "150g",
+              "calories": 200,
+              "protein": 18,
+              "carbohydrates": 15,
+              "fat": 8,
+              "fiber": 6,
+              "sugar": 2,
+              "ingredients": [
+                "Edamame"
+              ],
+              "prep_notes": "Steam and lightly salt."
+            },
+            {
+              "meal_type": "Dinner",
+              "food_name": "Seitan Stir-fry",
+              "serving_size": "400g",
+              "calories": 650,
+              "protein": 55,
+              "carbohydrates": 40,
+              "fat": 15,
+              "fiber": 5,
+              "sugar": 4,
+              "ingredients": [
+                "Seitan",
+                "Bell peppers",
+                "Snap peas",
+                "Soy sauce"
+              ],
+              "prep_notes": "Sauté seitan and vegetables in a hot pan."
+            }
+          ],
+          "daily_total": {
+            "calories": 2100,
+            "protein": 150,
+            "carbohydrates": 196,
+            "fat": 58
+          }
+        },
+        {
+          "day": "Thursday",
+          "day_number": 4,
+          "meals": [
+            {
+              "meal_type": "Breakfast",
+              "food_name": "Greek Yogurt Bowl",
+              "serving_size": "300g",
+              "calories": 400,
+              "protein": 30,
+              "carbohydrates": 40,
+              "fat": 10,
+              "fiber": 5,
+              "sugar": 10,
+              "ingredients": [
+                "Greek yogurt",
+                "Granola",
+                "Honey",
+                "Walnuts"
+              ],
+              "prep_notes": "Top yogurt with granola and nuts."
+            },
+            {
+              "meal_type": "Morning Snack",
+              "food_name": "Protein Bar",
+              "serving_size": "1 bar",
+              "calories": 200,
+              "protein": 20,
+              "carbohydrates": 15,
+              "fat": 7,
+              "fiber": 5,
+              "sugar": 2,
+              "ingredients": [
+                "Vegetarian protein bar"
+              ],
+              "prep_notes": "Ready to eat."
+            },
+            {
+              "meal_type": "Lunch",
+              "food_name": "Black Bean Burrito Bowl",
+              "serving_size": "450g",
+              "calories": 650,
+              "protein": 35,
+              "carbohydrates": 85,
+              "fat": 18,
+              "fiber": 15,
+              "sugar": 3,
+              "ingredients": [
+                "Black beans",
+                "Brown rice",
+                "Salsa",
+                "Avocado",
+                "Corn"
+              ],
+              "prep_notes": "Assemble all ingredients in a bowl."
+            },
+            {
+              "meal_type": "Evening Snack",
+              "food_name": "Carrot Sticks with Hummus",
+              "serving_size": "150g",
+              "calories": 200,
+              "protein": 6,
+              "carbohydrates": 25,
+              "fat": 8,
+              "fiber": 6,
+              "sugar": 4,
+              "ingredients": [
+                "Carrots",
+                "Hummus"
+              ],
+              "prep_notes": "Dip carrots in hummus."
+            },
+            {
+              "meal_type": "Dinner",
+              "food_name": "Lentil Pasta with Marinara",
+              "serving_size": "400g",
+              "calories": 650,
+              "protein": 40,
+              "carbohydrates": 80,
+              "fat": 12,
+              "fiber": 10,
+              "sugar": 6,
+              "ingredients": [
+                "Lentil pasta",
+                "Marinara sauce",
+                "Nutritional yeast"
+              ],
+              "prep_notes": "Boil pasta and toss with sauce."
+            }
+          ],
+          "daily_total": {
+            "calories": 2100,
+            "protein": 131,
+            "carbohydrates": 245,
+            "fat": 55
+          }
+        },
+        {
+          "day": "Friday",
+          "day_number": 5,
+          "meals": [
+            {
+              "meal_type": "Breakfast",
+              "food_name": "Oatmeal with Peanut Butter",
+              "serving_size": "1 bowl",
+              "calories": 450,
+              "protein": 25,
+              "carbohydrates": 55,
+              "fat": 15,
+              "fiber": 7,
+              "sugar": 5,
+              "ingredients": [
+                "Oats",
+                "Peanut butter",
+                "Soy milk"
+              ],
+              "prep_notes": "Stir peanut butter into cooked oats."
+            },
+            {
+              "meal_type": "Morning Snack",
+              "food_name": "Cottage Cheese",
+              "serving_size": "150g",
+              "calories": 150,
+              "protein": 20,
+              "carbohydrates": 5,
+              "fat": 4,
+              "fiber": 3,
+              "sugar": 3,
+              "ingredients": [
+                "Cottage cheese"
+              ],
+              "prep_notes": "Serve chilled."
+            },
+            {
+              "meal_type": "Lunch",
+              "food_name": "Quinoa Salad with Chickpeas",
+              "serving_size": "450g",
+              "calories": 650,
+              "protein": 35,
+              "carbohydrates": 80,
+              "fat": 18,
+              "fiber": 12,
+              "sugar": 4,
+              "ingredients": [
+                "Quinoa",
+                "Chickpeas",
+                "Cucumber",
+                "Feta cheese"
+              ],
+              "prep_notes": "Mix ingredients and dress with olive oil."
+            },
+            {
+              "meal_type": "Evening Snack",
+              "food_name": "Greek Yogurt",
+              "serving_size": "150g",
+              "calories": 150,
+              "protein": 15,
+              "carbohydrates": 10,
+              "fat": 4,
+              "fiber": 3,
+              "sugar": 6,
+              "ingredients": [
+                "Greek yogurt"
+              ],
+              "prep_notes": "Plain."
+            },
+            {
+              "meal_type": "Dinner",
+              "food_name": "Tofu Vegetable Curry",
+              "serving_size": "450g",
+              "calories": 700,
+              "protein": 45,
+              "carbohydrates": 60,
+              "fat": 20,
+              "fiber": 8,
+              "sugar": 5,
+              "ingredients": [
+                "Tofu",
+                "Mixed vegetables",
+                "Curry paste",
+                "Brown rice"
+              ],
+              "prep_notes": "Cook tofu and veggies in curry sauce."
+            }
+          ],
+          "daily_total": {
+            "calories": 2100,
+            "protein": 140,
+            "carbohydrates": 210,
+            "fat": 61
+          }
+        },
+        {
+          "day": "Saturday",
+          "day_number": 6,
+          "meals": [
+            {
+              "meal_type": "Breakfast",
+              "food_name": "Protein Pancakes",
+              "serving_size": "3 pancakes",
+              "calories": 450,
+              "protein": 35,
+              "carbohydrates": 50,
+              "fat": 10,
+              "fiber": 6,
+              "sugar": 5,
+              "ingredients": [
+                "Protein powder",
+                "Oat flour",
+                "Egg whites",
+                "Baking powder"
+              ],
+              "prep_notes": "Cook on a non-stick griddle."
+            },
+            {
+              "meal_type": "Morning Snack",
+              "food_name": "Mixed Nuts",
+              "serving_size": "30g",
+              "calories": 200,
+              "protein": 6,
+              "carbohydrates": 8,
+              "fat": 18,
+              "fiber": 3,
+              "sugar": 1,
+              "ingredients": [
+                "Almonds",
+                "Walnuts",
+                "Cashews"
+              ],
+              "prep_notes": "Raw."
+            },
+            {
+              "meal_type": "Lunch",
+              "food_name": "Tempeh Sandwich",
+              "serving_size": "1 sandwich",
+              "calories": 600,
+              "protein": 40,
+              "carbohydrates": 60,
+              "fat": 18,
+              "fiber": 10,
+              "sugar": 5,
+              "ingredients": [
+                "Tempeh",
+                "Whole grain bread",
+                "Lettuce",
+                "Tomato",
+                "Mustard"
+              ],
+              "prep_notes": "Grill tempeh and assemble sandwich."
+            },
+            {
+              "meal_type": "Evening Snack",
+              "food_name": "Protein Shake",
+              "serving_size": "1 scoop",
+              "calories": 150,
+              "protein": 25,
+              "carbohydrates": 5,
+              "fat": 2,
+              "fiber": 1,
+              "sugar": 1,
+              "ingredients": [
+                "Whey protein",
+                "Water"
+              ],
+              "prep_notes": "Shake well."
+            },
+            {
+              "meal_type": "Dinner",
+              "food_name": "Stuffed Bell Peppers",
+              "serving_size": "2 peppers",
+              "calories": 700,
+              "protein": 40,
+              "carbohydrates": 70,
+              "fat": 15,
+              "fiber": 12,
+              "sugar": 6,
+              "ingredients": [
+                "Bell peppers",
+                "Lentils",
+                "Brown rice",
+                "Tomato sauce"
+              ],
+              "prep_notes": "Bake stuffed peppers until tender."
+            }
+          ],
+          "daily_total": {
+            "calories": 2100,
+            "protein": 146,
+            "carbohydrates": 193,
+            "fat": 63
+          }
+        },
+        {
+          "day": "Sunday",
+          "day_number": 7,
+          "meals": [
+            {
+              "meal_type": "Breakfast",
+              "food_name": "Tofu Scramble with Toast",
+              "serving_size": "350g",
+              "calories": 450,
+              "protein": 35,
+              "carbohydrates": 45,
+              "fat": 12,
+              "fiber": 6,
+              "sugar": 3,
+              "ingredients": [
+                "Tofu",
+                "Spinach",
+                "Whole grain toast"
+              ],
+              "prep_notes": "Serve scramble over toast."
+            },
+            {
+              "meal_type": "Morning Snack",
+              "food_name": "Greek Yogurt",
+              "serving_size": "150g",
+              "calories": 150,
+              "protein": 15,
+              "carbohydrates": 10,
+              "fat": 4,
+              "fiber": 3,
+              "sugar": 6,
+              "ingredients": [
+                "Greek yogurt"
+              ],
+              "prep_notes": "Plain."
+            },
+            {
+              "meal_type": "Lunch",
+              "food_name": "Lentil Salad",
+              "serving_size": "400g",
+              "calories": 600,
+              "protein": 35,
+              "carbohydrates": 75,
+              "fat": 15,
+              "fiber": 15,
+              "sugar": 4,
+              "ingredients": [
+                "Lentils",
+                "Onion",
+                "Parsley",
+                "Olive oil"
+              ],
+              "prep_notes": "Toss cooked lentils with herbs and oil."
+            },
+            {
+              "meal_type": "Evening Snack",
+              "food_name": "Apple with Peanut Butter",
+              "serving_size": "1 serving",
+              "calories": 250,
+              "protein": 8,
+              "carbohydrates": 30,
+              "fat": 12,
+              "fiber": 6,
+              "sugar": 18,
+              "ingredients": [
+                "Apple",
+                "Peanut butter"
+              ],
+              "prep_notes": "Slice apple and dip."
+            },
+            {
+              "meal_type": "Dinner",
+              "food_name": "Vegetarian Chili",
+              "serving_size": "500g",
+              "calories": 650,
+              "protein": 40,
+              "carbohydrates": 80,
+              "fat": 15,
+              "fiber": 20,
+              "sugar": 5,
+              "ingredients": [
+                "Beans",
+                "Tomatoes",
+                "Onion",
+                "Chili powder"
+              ],
+              "prep_notes": "Simmer all ingredients in a large pot."
+            }
+          ],
+          "daily_total": {
+            "calories": 2100,
+            "protein": 133,
+            "carbohydrates": 240,
+            "fat": 58
+          }
+        }
+      ],
+      "summary": "This plan is designed to support weight loss by maintaining a caloric deficit while prioritizing high protein intake to preserve lean muscle mass. By focusing on whole, fiber-rich vegetarian sources like legumes, tofu, and whole grains, it ensures satiety and stable blood sugar levels throughout the day.",
+      "medical_disclaimer": "This meal plan is tailored for educational nutrition guidance and does not replace medical advice.",
+      "created_at": "2026-10-05T03:48:37.001Z"
+    }
+  ],
+  "grocery_items": [
+    {
+      "id": "g-1791172117001-0ohv",
+      "member_id": "mem-demo-riyas",
+      "name": "Rolled Oats (1kg)",
+      "category": "Grains & Pantry",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-uqid",
+      "member_id": "mem-demo-riyas",
+      "name": "Brown Rice (1kg)",
+      "category": "Grains & Pantry",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-nb2o",
+      "member_id": "mem-demo-riyas",
+      "name": "Lentils (500g)",
+      "category": "Grains & Pantry",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-nbr7",
+      "member_id": "mem-demo-riyas",
+      "name": "Black Beans (3 cans)",
+      "category": "Grains & Pantry",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-azaq",
+      "member_id": "mem-demo-riyas",
+      "name": "Chickpeas (3 cans)",
+      "category": "Grains & Pantry",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-ra8n",
+      "member_id": "mem-demo-riyas",
+      "name": "Quinoa (500g)",
+      "category": "Grains & Pantry",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-iwmq",
+      "member_id": "mem-demo-riyas",
+      "name": "Whole grain bread (1 loaf)",
+      "category": "Grains & Pantry",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-z4rp",
+      "member_id": "mem-demo-riyas",
+      "name": "Extra firm tofu (4 blocks)",
+      "category": "Proteins",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-hvu8",
+      "member_id": "mem-demo-riyas",
+      "name": "Tempeh (2 blocks)",
+      "category": "Proteins",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-4a7i",
+      "member_id": "mem-demo-riyas",
+      "name": "Seitan (250g)",
+      "category": "Proteins",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-4pfm",
+      "member_id": "mem-demo-riyas",
+      "name": "Greek yogurt (1kg)",
+      "category": "Dairy & Alternatives",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-t2hp",
+      "member_id": "mem-demo-riyas",
+      "name": "Cottage cheese (500g)",
+      "category": "Dairy & Alternatives",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-svv7",
+      "member_id": "mem-demo-riyas",
+      "name": "Almond milk (1L)",
+      "category": "Dairy & Alternatives",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-70uh",
+      "member_id": "mem-demo-riyas",
+      "name": "Spinach (500g)",
+      "category": "Produce",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-u806",
+      "member_id": "mem-demo-riyas",
+      "name": "Broccoli (500g)",
+      "category": "Produce",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-16w8",
+      "member_id": "mem-demo-riyas",
+      "name": "Apples (7)",
+      "category": "Produce",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117001-myx0",
+      "member_id": "mem-demo-riyas",
+      "name": "Bell peppers (6)",
+      "category": "Produce",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.001Z"
+    },
+    {
+      "id": "g-1791172117002-xbeb",
+      "member_id": "mem-demo-riyas",
+      "name": "Peanut butter (1 jar)",
+      "category": "Other",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.002Z"
+    },
+    {
+      "id": "g-1791172117002-3saw",
+      "member_id": "mem-demo-riyas",
+      "name": "Whey protein powder (1 tub)",
+      "category": "Other",
+      "checked": false,
+      "created_at": "2026-10-05T03:48:37.002Z"
+    }
+  ],
+  "favorites": [
+    {
+      "food_name": "Grilled Paneer Tikka",
+      "serving_size": "1 plate (200g)",
+      "calories": 320,
+      "protein": 24,
+      "carbohydrates": 10,
+      "fat": 20,
+      "fiber": 0,
+      "sugar": 0,
+      "meal_type": "Lunch",
+      "id": "fav-1791172144501-bjws",
+      "member_id": "mem-demo-riyas",
+      "created_at": "2026-10-05T03:49:04.501Z"
+    },
+    {
+      "id": "fav-1",
+      "member_id": "mem-demo-riyas",
+      "food_name": "Avocado Toast with Poached Egg",
+      "serving_size": "1 slice (180g)",
+      "calories": 290,
+      "protein": 12,
+      "carbohydrates": 24,
+      "fat": 16,
+      "fiber": 7,
+      "sugar": 2,
+      "meal_type": "Breakfast",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    },
+    {
+      "id": "fav-2",
+      "member_id": "mem-demo-riyas",
+      "food_name": "Quinoa Veggie Bowl with Tahini",
+      "serving_size": "1 bowl (350g)",
+      "calories": 460,
+      "protein": 18,
+      "carbohydrates": 58,
+      "fat": 16,
+      "fiber": 9,
+      "sugar": 4,
+      "meal_type": "Lunch",
+      "created_at": "2026-10-05T03:47:12.629Z"
+    }
+  ],
+  "reminders": [
+    {
+      "id": "r-1",
+      "member_id": "mem-demo-riyas",
+      "type": "water",
+      "label": "Hydration Drink Reminder",
+      "time": "10:00",
+      "enabled": true
+    },
+    {
+      "id": "r-2",
+      "member_id": "mem-demo-riyas",
+      "type": "meal",
+      "label": "Lunch Nutrition Reminder",
+      "time": "13:00",
+      "enabled": true
+    },
+    {
+      "id": "r-3",
+      "member_id": "mem-demo-riyas",
+      "type": "sleep",
+      "label": "Wind-Down & Sleep Log",
+      "time": "22:30",
+      "enabled": false
+    },
+    {
+      "id": "r-4",
+      "member_id": "mem-demo-riyas",
+      "type": "plan",
+      "label": "Weekly Meal Plan Review",
+      "time": "18:00",
+      "enabled": true
+    }
+  ]
+}

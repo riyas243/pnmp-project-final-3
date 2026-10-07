@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}Profile & Nutrition Targets - PNMP Health{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <!-- Profile Edit Form -->
+  <div class="col-lg-7">
+    <div class="pnmp-card shadow-sm border">
+      <div class="pnmp-card-header">
+        <h5 class="mb-0 fw-bold d-flex align-items-center gap-2">
+          <i class="bi bi-person-bounding-box text-success"></i> Biometrics & Personal Profile
+        </h5>
+        <span class="badge bg-light text-dark border">{{ member_info.name if member_info else 'User' }}</span>
+      </div>
+      <div class="pnmp-card-body">
+        <form method="POST" action="{{ url_for('profile') }}" id="profileForm">
+          <div class="mb-3">
+            <label for="name" class="form-label fw-semibold small text-muted">Profile Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ member_info.name if member_info else '' }}" required>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <label for="age" class="form-label fw-semibold small text-muted">Age (Years)</label>
+              <input type="number" class="form-control" id="age" name="age" value="{{ profile.age }}" min="10" max="120" required oninput="calculateLivePreview()">
+            </div>
+            <div class="col-md-4">
+              <label for="gender" class="form-label fw-semibold small text-muted">Biological Gender</label>
+              <select class="form-select" id="gender" name="gender" required onchange="calculateLivePreview()">
+                <option value="Male" {% if profile.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if profile.gender == 'Female' %}selected{% endif %}>Female</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="fitness_goal" class="form-label fw-semibold small text-muted">{{ t('fitness_goal') }}</label>
+              <select class="form-select" id="fitness_goal" name="fitness_goal" required onchange="calculateLivePreview()">
+                <option value="Weight Loss" {% if profile.fitness_goal == 'Weight Loss' %}selected{% endif %}>Weight Loss (-500 kcal)</option>
+                <option value="Weight Maintenance" {% if profile.fitness_goal == 'Weight Maintenance' %}selected{% endif %}>Weight Maintenance (TDEE)</option>
+                <option value="Weight Gain" {% if profile.fitness_goal == 'Weight Gain' %}selected{% endif %}>Weight Gain (+400 kcal)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label for="height_cm" class="form-label fw-semibold small text-muted">Height (cm)</label>
+              <div class="input-group">
+                <input type="number" step="0.5" class="form-control" id="height_cm" name="height_cm" value="{{ profile.height_cm }}" min="80" max="250" required oninput="calculateLivePreview()">
+                <span class="input-group-text bg-light">cm</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="weight_kg" class="form-label fw-semibold small text-muted">Current Weight (kg)</label>
+              <div class="input-group">
+                <input type="number" step="0.1" class="form-control" id="weight_kg" name="weight_kg" value="{{ profile.weight_kg }}" min="25" max="300" required oninput="calculateLivePreview()">
+                <span class="input-group-text bg-light">kg</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="activity_level" class="form-label fw-semibold small text-muted">Physical Activity Level</label>
+            <select class="form-select" id="activity_level" name="activity_level" required onchange="calculateLivePreview()">
+              <option value="Sedentary" {% if profile.activity_level == 'Sedentary' %}selected{% endif %}>Sedentary (Little or no exercise &bull; 1.2x)</option>
+              <option value="Lightly Active" {% if profile.activity_level == 'Lightly Active' %}selected{% endif %}>Lightly Active (Light exercise 1-3 days/week &bull; 1.375x)</option>
+              <option value="Moderately Active" {% if profile.activity_level == 'Moderately Active' %}selected{% endif %}>Moderately Active (Moderate exercise 3-5 days/week &bull; 1.55x)</option>
+              <option value="Very Active" {% if profile.activity_level == 'Very Active' %}selected{% endif %}>Very Active (Hard exercise 6-7 days/week &bull; 1.725x)</option>
+              <option value="Extra Active" {% if profile.activity_level == 'Extra Active' %}selected{% endif %}>Extra Active (Very hard exercise / physical job &bull; 1.9x)</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="dietary_preference" class="form-label fw-semibold small text-muted">{{ t('dietary_preference') }}</label>
+            <select class="form-select" id="dietary_preference" name="dietary_preference">
+              <option value="Vegetarian" {% if profile.dietary_preference == 'Vegetarian' %}selected{% endif %}>Vegetarian</option>
+              <option value="Non-Vegetarian" {% if profile.dietary_preference == 'Non-Vegetarian' %}selected{% endif %}>Non-Vegetarian</option>
+              <option value="Vegan" {% if profile.dietary_preference == 'Vegan' %}selected{% endif %}>Vegan</option>
+              <option value="Eggetarian" {% if profile.dietary_preference == 'Eggetarian' %}selected{% endif %}>Eggetarian</option>
+              <option value="Custom" {% if profile.dietary_preference == 'Custom' %}selected{% endif %}>Custom / Flexitarian</option>
+            </select>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label for="allergies" class="form-label fw-semibold small text-muted">Food Allergies / Intolerances</label>
+              <input type="text" class="form-control" id="allergies" name="allergies" value="{{ profile.allergies }}" placeholder="e.g. Peanuts, Lactose, Gluten">
+            </div>
+            <div class="col-md-6">
+              <label for="medical_conditions" class="form-label fw-semibold small text-muted">Medical Conditions (Optional)</label>
+              <input type="text" class="form-control" id="medical_conditions" name="medical_conditions" value="{{ profile.medical_conditions }}" placeholder="e.g. Type 2 Diabetes, Hypertension">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+            <i class="bi bi-save2 me-1"></i> Save Profile & Update Calculations
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Scientific Nutrition Calculations Card -->
+  <div class="col-lg-5">
+    <div class="pnmp-card shadow-sm border mb-4">
+      <div class="pnmp-card-header bg-light-subtle">
+        <h6 class="mb-0 fw-bold d-flex align-items-center gap-2">
+          <i class="bi bi-calculator-fill text-primary"></i> Live Scientific Nutrition Output
+        </h6>
+        <span class="badge bg-success-subtle text-success">Mifflin-St Jeor</span>
+      </div>
+      <div class="pnmp-card-body">
+        <!-- Live BMI -->
+        <div class="d-flex align-items-center justify-content-between p-3 border rounded mb-3 bg-light-subtle">
+          <div>
+            <div class="text-muted small text-uppercase fw-bold">Body Mass Index (BMI)</div>
+            <div class="display-6 fw-bold text-dark" id="liveBmi">{{ targets.bmi }}</div>
+            <small class="text-muted" id="liveBmiAdvice">{{ targets.bmi_advice }}</small>
+          </div>
+          <span class="badge bg-{{ targets.bmi_color }} fs-6 py-2 px-3" id="liveBmiCat">{{ targets.bmi_category }}</span>
+        </div>
+
+        <!-- BMR & TDEE -->
+        <div class="row g-2 mb-3 text-center">
+          <div class="col-6">
+            <div class="border rounded p-2 bg-light-subtle">
+              <div class="text-muted small">Basal Metabolic Rate</div>
+              <div class="fw-bold fs-5 text-dark" id="liveBmr">{{ targets.bmr }} <small class="text-muted fs-8">kcal</small></div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="border rounded p-2 bg-light-subtle">
+              <div class="text-muted small">Daily Expenditure (TDEE)</div>
+              <div class="fw-bold fs-5 text-dark" id="liveTdee">{{ targets.tdee }} <small class="text-muted fs-8">kcal</small></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Target Calories -->
+        <div class="border rounded p-3 text-center mb-3 bg-success-subtle border-success-subtle">
+          <div class="text-success small fw-bold text-uppercase">Recommended Daily Intake</div>
+          <div class="display-5 fw-bold text-success" id="liveTargetCals">{{ targets.target_calories }} <span class="fs-6 text-muted">kcal/day</span></div>
+          <div class="text-muted small" id="liveGoalNote">{{ targets.goal_note }}</div>
+        </div>
+
+        <!-- Macro Split -->
+        <div class="mb-3">
+          <div class="fw-bold small text-muted text-uppercase mb-2">Target Macronutrient Split</div>
+          <div class="d-flex justify-content-between border rounded p-2 mb-1 bg-light-subtle">
+            <span><i class="bi bi-circle-fill text-info me-1"></i> Protein</span>
+            <strong id="liveProtein">{{ targets.protein_g }} g</strong>
+          </div>
+          <div class="d-flex justify-content-between border rounded p-2 mb-1 bg-light-subtle">
+            <span><i class="bi bi-circle-fill text-warning me-1"></i> Carbohydrates</span>
+            <strong id="liveCarbs">{{ targets.carbs_g }} g</strong>
+          </div>
+          <div class="d-flex justify-content-between border rounded p-2 mb-1 bg-light-subtle">
+            <span><i class="bi bi-circle-fill text-danger me-1"></i> Fats</span>
+            <strong id="liveFat">{{ targets.fat_g }} g</strong>
+          </div>
+        </div>
+
+        <!-- Hydration Target -->
+        <div class="d-flex justify-content-between align-items-center border rounded p-2 bg-light-subtle">
+          <span class="small fw-semibold"><i class="bi bi-droplet-fill text-info me-1"></i> Daily Hydration Target</span>
+          <strong class="text-dark" id="liveWater">{{ targets.water_target_ml }} ml</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medical Notice Box -->
+    <div class="alert alert-warning border-warning-subtle shadow-sm small">
+      <h6 class="fw-bold alert-heading mb-1"><i class="bi bi-exclamation-triangle-fill me-1"></i> Health Safety Note</h6>
+      <p class="mb-0">
+        All calorie and macronutrient targets are scientifically calculated based on the Mifflin-St Jeor formula and WHO BMI guidelines. If you have chronic medical conditions (e.g. diabetes, renal illness), please consult your registered dietitian before adopting a caloric deficit or surplus.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+function calculateLivePreview() {
+  const age = parseFloat(document.getElementById('age').value) || 25;
+  const gender = document.getElementById('gender').value || 'Male';
+  const heightCm = parseFloat(document.getElementById('height_cm').value) || 170;
+  const weightKg = parseFloat(document.getElementById('weight_kg').value) || 70;
+  const activity = document.getElementById('activity_level').value || 'Moderately Active';
+  const goal = document.getElementById('fitness_goal').value || 'Weight Maintenance';
+
+  // 1. BMI
+  const heightM = heightCm / 100.0;
+  const bmi = (weightKg / (heightM * heightM)).toFixed(1);
+  let bmiCat = "Normal Weight";
+  let bmiColor = "success";
+  if (bmi < 18.5) { bmiCat = "Underweight"; bmiColor = "info"; }
+  else if (bmi >= 25 && bmi < 30) { bmiCat = "Overweight"; bmiColor = "warning"; }
+  else if (bmi >= 30) { bmiCat = "Obese"; bmiColor = "danger"; }
+
+  document.getElementById('liveBmi').innerText = bmi;
+  const catEl = document.getElementById('liveBmiCat');
+  catEl.innerText = bmiCat;
+  catEl.className = `badge bg-${bmiColor} fs-6 py-2 px-3`;
+
+  // 2. BMR
+  let bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age);
+  bmr = gender === 'Female' ? (bmr - 161) : (bmr + 5);
+  bmr = Math.round(bmr);
+  document.getElementById('liveBmr').innerHTML = `${bmr} <small class="text-muted fs-8">kcal</small>`;
+
+  // 3. TDEE
+  const mults = { "Sedentary": 1.2, "Lightly Active": 1.375, "Moderately Active": 1.55, "Very Active": 1.725, "Extra Active": 1.9 };
+  const mult = mults[activity] || 1.375;
+  const tdee = Math.round(bmr * mult);
+  document.getElementById('liveTdee').innerHTML = `${tdee} <small class="text-muted fs-8">kcal</small>`;
+
+  // 4. Target Cals
+  let targetCals = tdee;
+  let pRatio = 0.25, cRatio = 0.50, fRatio = 0.25;
+  if (goal === 'Weight Loss') {
+    targetCals = Math.max(gender === 'Female' ? 1200 : 1500, tdee - 500);
+    pRatio = 0.30; cRatio = 0.45; fRatio = 0.25;
+  } else if (goal === 'Weight Gain') {
+    targetCals = tdee + 400;
+    pRatio = 0.25; cRatio = 0.55; fRatio = 0.20;
+  }
+  document.getElementById('liveTargetCals').innerHTML = `${targetCals} <span class="fs-6 text-muted">kcal/day</span>`;
+
+  // 5. Macros
+  document.getElementById('liveProtein').innerText = `${((targetCals * pRatio) / 4).toFixed(1)} g`;
+  document.getElementById('liveCarbs').innerText = `${((targetCals * cRatio) / 4).toFixed(1)} g`;
+  document.getElementById('liveFat').innerText = `${((targetCals * fRatio) / 9).toFixed(1)} g`;
+
+  // 6. Water
+  document.getElementById('liveWater').innerText = `${Math.round(weightKg * 35)} ml`;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+{
+  "name": "PNMP - AI Food Scanner & Nutrition Planner",
+  "description": "Personalized Nutrition & Meal Planner with AI multimodal image food scanning powered by Google Gemini API.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

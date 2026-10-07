@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Today's Nutrition Diary - PNMP Health{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-12">
+    <div class="pnmp-card shadow-sm border">
+      <div class="pnmp-card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div>
+          <h4 class="fw-bold mb-1 text-dark d-flex align-items-center gap-2">
+            <i class="bi bi-calendar2-check-fill text-success"></i> Today's Daily Nutrition Diary
+          </h4>
+          <p class="text-muted small mb-0">{{ today_date }} &bull; Total Meals Logged: <strong>{{ meal_count }}</strong></p>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#manualMealModal">
+            <i class="bi bi-plus-lg me-1"></i> Add Meal Manually
+          </button>
+          <a href="{{ url_for('food_scan') }}" class="btn btn-primary btn-sm">
+            <i class="bi bi-camera me-1"></i> Scan with AI
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Daily Intake Summary Meters -->
+<div class="row g-3 mb-4">
+  <div class="col-md-3 col-6">
+    <div class="pnmp-card p-3 text-center">
+      <div class="text-muted small text-uppercase fw-bold mb-1">Calories</div>
+      <div class="fs-4 fw-bold text-success">{{ total_cals }} <small class="fs-7 text-muted">/ {{ targets.target_calories }}</small></div>
+      <div class="progress mt-2" style="height: 6px;">
+        <div class="progress-bar progress-bar-calories" style="width: {{ [100, (total_cals / targets.target_calories * 100)|round|int]|min if targets.target_calories > 0 else 0 }}%;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-6">
+    <div class="pnmp-card p-3 text-center">
+      <div class="text-muted small text-uppercase fw-bold mb-1">Protein</div>
+      <div class="fs-4 fw-bold text-primary">{{ total_protein }}g <small class="fs-7 text-muted">/ {{ targets.protein_g }}g</small></div>
+      <div class="progress mt-2" style="height: 6px;">
+        <div class="progress-bar progress-bar-protein" style="width: {{ [100, (total_protein / targets.protein_g * 100)|round|int]|min if targets.protein_g > 0 else 0 }}%;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-6">
+    <div class="pnmp-card p-3 text-center">
+      <div class="text-muted small text-uppercase fw-bold mb-1">Carbohydrates</div>
+      <div class="fs-4 fw-bold text-warning">{{ total_carbs }}g <small class="fs-7 text-muted">/ {{ targets.carbs_g }}g</small></div>
+      <div class="progress mt-2" style="height: 6px;">
+        <div class="progress-bar progress-bar-carbs" style="width: {{ [100, (total_carbs / targets.carbs_g * 100)|round|int]|min if targets.carbs_g > 0 else 0 }}%;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-6">
+    <div class="pnmp-card p-3 text-center">
+      <div class="text-muted small text-uppercase fw-bold mb-1">Fats</div>
+      <div class="fs-4 fw-bold text-danger">{{ total_fat }}g <small class="fs-7 text-muted">/ {{ targets.fat_g }}g</small></div>
+      <div class="progress mt-2" style="height: 6px;">
+        <div class="progress-bar progress-bar-fat" style="width: {{ [100, (total_fat / targets.fat_g * 100)|round|int]|min if targets.fat_g > 0 else 0 }}%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Meals Grouped by Category -->
+{% for category, meals in meals_by_cat.items() %}
+  <div class="pnmp-card mb-3">
+    <div class="pnmp-card-header bg-light-subtle py-2 d-flex justify-content-between align-items-center">
+      <h6 class="mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+        <i class="bi bi-egg-fried text-success"></i> {{ category }}
+      </h6>
+      <span class="badge bg-light text-muted border">{{ meals|length }} item(s)</span>
+    </div>
+    <div class="pnmp-card-body p-0">
+      {% if meals %}
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="small text-muted">
+              <tr>
+                <th style="width: 35%;">Food Item</th>
+                <th>Portion</th>
+                <th>Calories</th>
+                <th>Protein</th>
+                <th>Carbs</th>
+                <th>Fat</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in meals %}
+                <tr id="meal-row-{{ m.id }}">
+                  <td>
+                    <strong class="text-dark">{{ m.food_name }}</strong>
+                    {% if m.confidence > 0 %}
+                      <span class="badge bg-success-subtle text-success fs-8 ms-1">AI Verified</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-muted small">{{ m.serving_size }}</td>
+                  <td><strong class="text-success">{{ m.calories|round|int }}</strong> kcal</td>
+                  <td>{{ m.protein }}g</td>
+                  <td>{{ m.carbohydrates }}g</td>
+                  <td>{{ m.fat }}g</td>
+                  <td class="text-end">
+                    <button class="btn btn-sm btn-outline-danger py-0 px-2" onclick="deleteMeal({{ m.id }})" title="Delete">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="p-3 text-center text-muted small">
+          No items logged for {{ category }}.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+
+<!-- Manual Add Meal Modal -->
+<div class="modal fade" id="manualMealModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold"><i class="bi bi-plus-circle-fill text-success me-2"></i>Log Meal Manually</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label small text-muted">Meal Category</label>
+          <select class="form-select" id="manualMealType">
+            <option value="Breakfast">Breakfast</option>
+            <option value="Morning Snack">Morning Snack</option>
+            <option value="Lunch" selected>Lunch</option>
+            <option value="Evening Snack">Evening Snack</option>
+            <option value="Dinner">Dinner</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label small text-muted">Food Name</label>
+          <input type="text" class="form-control" id="manualFoodName" placeholder="e.g. Scrambled Eggs on Toast" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label small text-muted">Portion / Serving Size</label>
+          <input type="text" class="form-control" id="manualServingSize" placeholder="e.g. 2 eggs, 1 slice toast" value="1 serving">
+        </div>
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <label class="form-label small text-muted">Calories (kcal)</label>
+            <input type="number" class="form-control" id="manualCalories" placeholder="e.g. 280" required>
+          </div>
+          <div class="col-6">
+            <label class="form-label small text-muted">Protein (g)</label>
+            <input type="number" step="0.1" class="form-control" id="manualProtein" placeholder="e.g. 14">
+          </div>
+          <div class="col-6">
+            <label class="form-label small text-muted">Carbohydrates (g)</label>
+            <input type="number" step="0.1" class="form-control" id="manualCarbs" placeholder="e.g. 22">
+          </div>
+          <div class="col-6">
+            <label class="form-label small text-muted">Fat (g)</label>
+            <input type="number" step="0.1" class="form-control" id="manualFat" placeholder="e.g. 12">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="submitManualMeal()">Save to Diary</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+async function submitManualMeal() {
+  const food_name = document.getElementById('manualFoodName').value.trim();
+  const calories = parseFloat(document.getElementById('manualCalories').value) || 0;
+  if (!food_name || calories <= 0) {
+    showToast('Please provide a food name and valid calorie count.', 'warning');
+    return;
+  }
+
+  const payload = {
+    food_name: food_name,
+    serving_size: document.getElementById('manualServingSize').value.trim() || '1 serving',
+    meal_type: document.getElementById('manualMealType').value,
+    calories: calories,
+    protein: parseFloat(document.getElementById('manualProtein').value) || 0,
+    carbohydrates: parseFloat(document.getElementById('manualCarbs').value) || 0,
+    fat: parseFloat(document.getElementById('manualFat').value) || 0,
+    confidence: 0
+  };
+
+  try {
+    const res = await fetch('/api/log-meal', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast('Meal successfully logged!', 'success');
+      setTimeout(() => window.location.reload(), 600);
+    } else {
+      showToast(data.error || 'Failed to record meal.', 'danger');
+    }
+  } catch (err) {
+    showToast('Error recording meal.', 'danger');
+  }
+}
+</script>
+{% endblock %}

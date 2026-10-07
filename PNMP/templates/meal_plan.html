@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}AI Meal Plan - PNMP Health{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-12">
+    <div class="pnmp-card shadow-sm border">
+      <div class="pnmp-card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div>
+          <h4 class="fw-bold mb-1 text-dark d-flex align-items-center gap-2">
+            <i class="bi bi-journal-richtext text-success"></i> Personalized 7-Day AI Meal Plan
+          </h4>
+          <p class="text-muted small mb-0">
+            Tailored to your goal of <strong class="text-dark">{{ targets.goal }}</strong> &bull;
+            Target: <strong class="text-dark">{{ targets.target_calories }} kcal/day</strong> &bull;
+            Diet: <strong class="text-dark">{{ profile.dietary_preference }}</strong>
+          </p>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-primary fw-semibold d-flex align-items-center gap-2" id="genPlanBtn" onclick="triggerGenerateMealPlan()">
+            <i class="bi bi-sparkles"></i> Generate New AI Plan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Plan Generation Loading Spinner -->
+<div class="text-center py-5 d-none" id="planLoadingArea">
+  <div class="spinner-border text-success mb-3" style="width: 3.5rem; height: 3.5rem;" role="status"></div>
+  <h5 class="fw-bold text-dark ai-pulse-anim mb-1">Synthesizing Your 7-Day Nutrition Plan...</h5>
+  <p class="text-muted small">Gemini is balancing daily caloric targets, macronutrient distributions, and dietary constraints.</p>
+</div>
+
+<!-- Plan Content Area -->
+<div id="planContentArea">
+  {% if plan_data and (plan_data.weekly_plan or plan_data.days) %}
+    <!-- Summary & Medical Disclaimer Banner -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-8">
+        <div class="pnmp-card p-3 bg-light-subtle h-100">
+          <h6 class="fw-bold text-success mb-1"><i class="bi bi-info-circle-fill me-1"></i> Plan Overview</h6>
+          <p class="small text-muted mb-0">{{ plan_data.summary or 'A balanced, nutrient-rich weekly meal plan designed for steady energy and healthy body composition.' }}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="alert alert-warning border-warning-subtle mb-0 h-100 p-3 small">
+          <strong><i class="bi bi-shield-exclamation me-1"></i> Medical Notice:</strong>
+          <span class="text-muted">{{ plan_data.medical_disclaimer or 'This meal plan is for educational guidance only and does not substitute professional medical advice.' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day Navigation Tabs -->
+    <ul class="nav nav-pills mb-4 nav-justified bg-white p-2 rounded shadow-sm border" id="mealPlanTabs" role="tablist">
+      {% for day in plan_data.weekly_plan or plan_data.days %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fw-semibold {% if loop.first %}active{% endif %}" id="day-tab-{{ loop.index }}" data-bs-toggle="pill" data-bs-target="#day-pane-{{ loop.index }}" type="button" role="tab">
+            {{ day.day or day.day_name or ('Day ' ~ loop.index) }}
+          </button>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <!-- Day Tab Panes -->
+    <div class="tab-content mb-4" id="mealPlanTabsContent">
+      {% for day in plan_data.weekly_plan or plan_data.days %}
+        <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="day-pane-{{ loop.index }}" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0 text-dark">{{ day.day or day.day_name }} Nutrition Schedule</h5>
+            <span class="badge bg-success-subtle text-success border border-success-subtle fs-7 py-2 px-3">
+              Est. {{ day.daily_total.calories if day.daily_total else (day.total_calories or targets.target_calories) }} kcal
+            </span>
+          </div>
+
+          <div class="row g-3">
+            {% for meal in day.meals %}
+              <div class="col-md-6 col-lg-4 p-2">
+                <div class="pnmp-card h-100 border">
+                  <div class="pnmp-card-header bg-light-subtle py-2 d-flex justify-content-between align-items-center">
+                    <span class="badge bg-light text-dark border fw-bold">{{ meal.meal_type }}</span>
+                    <span class="fw-bold text-success small">{{ meal.calories }} kcal</span>
+                  </div>
+                  <div class="pnmp-card-body d-flex flex-column justify-content-between">
+                    <div>
+                      <h6 class="fw-bold text-dark mb-1">{{ meal.food_name }}</h6>
+                      <p class="text-muted small mb-2"><i class="bi bi-cup me-1"></i>Portion: {{ meal.serving_size }}</p>
+                      {% if meal.prep_notes %}
+                        <p class="text-muted small fst-italic mb-2">&ldquo;{{ meal.prep_notes }}&rdquo;</p>
+                      {% endif %}
+                    </div>
+                    <div>
+                      <div class="d-flex justify-content-between pt-2 border-top text-center text-muted small mb-2">
+                        <span>P: <strong class="text-primary">{{ meal.protein }}g</strong></span>
+                        <span>C: <strong class="text-warning">{{ meal.carbohydrates or meal.carbs }}g</strong></span>
+                        <span>F: <strong class="text-danger">{{ meal.fat }}g</strong></span>
+                      </div>
+                      <button class="btn btn-sm btn-outline-success w-100 fw-bold" onclick="logPlanMeal('{{ meal.food_name|replace("'", "\\'") }}', '{{ meal.meal_type }}', {{ meal.calories }}, {{ meal.protein }}, {{ meal.carbohydrates or meal.carbs }}, {{ meal.fat }}, '{{ meal.serving_size|replace("'", "\\'") }}')">
+                        <i class="bi bi-plus-circle me-1"></i> Log Meal to Today
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Categorized Grocery List -->
+    {% if plan_data.grocery_list %}
+      <div class="pnmp-card mb-4">
+        <div class="pnmp-card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0 fw-bold d-flex align-items-center gap-2">
+            <i class="bi bi-cart-check-fill text-primary"></i> Weekly Grocery Shopping List
+          </h5>
+          <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+            <i class="bi bi-printer me-1"></i> Print List
+          </button>
+        </div>
+        <div class="pnmp-card-body">
+          <div class="row g-3">
+            {% if plan_data.grocery_list is mapping %}
+              {% for category, items in plan_data.grocery_list.items() %}
+                <div class="col-md-6 col-lg-3">
+                  <div class="border rounded p-3 h-100 bg-light-subtle">
+                    <h6 class="fw-bold text-dark border-bottom pb-2 mb-2">{{ category }}</h6>
+                    <ul class="list-unstyled mb-0 small">
+                      {% for item in items %}
+                        <li class="py-1 d-flex align-items-center gap-2">
+                          <i class="bi bi-check2-square text-success"></i>
+                          <span>{{ item }}</span>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="col-12">
+                <div class="row g-2">
+                  {% for item in plan_data.grocery_list %}
+                    <div class="col-md-4 col-sm-6">
+                      <div class="p-2 border rounded bg-light-subtle small d-flex align-items-center gap-2">
+                        <i class="bi bi-check2-square text-success"></i>
+                        <span>{{ item.name if item.name is defined else item }}</span>
+                        {% if item.category is defined %}
+                          <span class="badge bg-secondary-subtle text-secondary ms-auto">{{ item.category }}</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+  {% else %}
+    <!-- Empty State -->
+    <div class="pnmp-card text-center py-5">
+      <div class="text-muted mb-3"><i class="bi bi-journal-medical display-3 text-success"></i></div>
+      <h4 class="fw-bold text-dark">No Meal Plan Generated Yet</h4>
+      <p class="text-muted small mx-auto mb-4" style="max-width: 500px;">
+        Click the button below to generate a tailored 7-day meal plan powered by Gemini AI, configured specifically for your dietary preferences and daily caloric targets.
+      </p>
+      {% if ai_status.is_configured %}
+        <button class="btn btn-primary px-4 py-2 fw-semibold" onclick="triggerGenerateMealPlan()">
+          <i class="bi bi-sparkles me-1"></i> Generate 7-Day AI Meal Plan
+        </button>
+      {% else %}
+        <div class="alert alert-warning d-inline-block text-start small">
+          <i class="bi bi-exclamation-triangle-fill me-1"></i> Gemini API Key is required to synthesize AI meal plans.
+          <a href="{{ url_for('settings') }}" class="fw-semibold ms-1">Configure in Settings</a>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

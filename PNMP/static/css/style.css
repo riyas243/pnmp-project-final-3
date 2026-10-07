@@ -1,0 +1,320 @@
+/* ========================================================
+   PNMP - Personalized Nutrition & Meal Planner
+   Health-Tech Professional Design System
+======================================================== */
+
+:root {
+  --pnmp-primary: #059669;
+  --pnmp-primary-hover: #047857;
+  --pnmp-primary-light: #ecfdf5;
+  --pnmp-secondary: #0284c7;
+  --pnmp-accent: #f59e0b;
+  --pnmp-danger: #ef4444;
+  --pnmp-dark: #0f172a;
+  --pnmp-slate: #334155;
+  --pnmp-muted: #64748b;
+  --pnmp-border: #e2e8f0;
+  --pnmp-bg: #f8fafc;
+  --pnmp-card-bg: #ffffff;
+  --pnmp-radius: 14px;
+  --pnmp-shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --pnmp-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  --pnmp-shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+}
+
+[data-theme="dark"] {
+  --pnmp-bg: #090d16;
+  --pnmp-card-bg: #111827;
+  --pnmp-border: #1f2937;
+  --pnmp-slate: #94a3b8;
+  --pnmp-muted: #64748b;
+  --pnmp-dark: #f8fafc;
+  --pnmp-primary-light: rgba(5, 150, 105, 0.15);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--pnmp-bg);
+  color: var(--pnmp-slate);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Sidebar & Navigation */
+.pnmp-sidebar {
+  width: 260px;
+  background: var(--pnmp-card-bg);
+  border-right: 1px solid var(--pnmp-border);
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1020;
+  display: flex;
+  flex-direction: column;
+}
+
+.pnmp-main-content {
+  margin-left: 260px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 991.98px) {
+  .pnmp-sidebar {
+    display: none;
+  }
+  .pnmp-main-content {
+    margin-left: 0;
+  }
+}
+
+.pnmp-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--pnmp-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--pnmp-border);
+  text-decoration: none;
+}
+
+.pnmp-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  color: var(--pnmp-slate);
+  font-weight: 500;
+  border-radius: 10px;
+  margin: 0.2rem 0.75rem;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.pnmp-nav-link i {
+  font-size: 1.15rem;
+}
+
+.pnmp-nav-link:hover {
+  background-color: var(--pnmp-primary-light);
+  color: var(--pnmp-primary);
+}
+
+.pnmp-nav-link.active {
+  background-color: var(--pnmp-primary);
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);
+}
+
+/* Header */
+.pnmp-topbar {
+  background: var(--pnmp-card-bg);
+  border-bottom: 1px solid var(--pnmp-border);
+  padding: 0.85rem 1.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Cards */
+.pnmp-card {
+  background: var(--pnmp-card-bg);
+  border: 1px solid var(--pnmp-border);
+  border-radius: var(--pnmp-radius);
+  box-shadow: var(--pnmp-shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  overflow: hidden;
+}
+
+.pnmp-card:hover {
+  box-shadow: var(--pnmp-shadow);
+}
+
+.pnmp-card-header {
+  padding: 1.1rem 1.3rem;
+  border-bottom: 1px solid var(--pnmp-border);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pnmp-card-body {
+  padding: 1.3rem;
+}
+
+/* Metric Pill Badges */
+.metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 600;
+}
+
+.metric-pill-success {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.metric-pill-info {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.metric-pill-warning {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.metric-pill-danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Nutrient Meter Bar */
+.nutrient-bar-wrapper {
+  margin-bottom: 1rem;
+}
+
+.nutrient-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.progress {
+  height: 9px;
+  border-radius: 9999px;
+  background-color: var(--pnmp-border);
+}
+
+.progress-bar-calories {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.progress-bar-protein {
+  background: linear-gradient(90deg, #38bdf8, #0284c7);
+}
+
+.progress-bar-carbs {
+  background: linear-gradient(90deg, #fbbf24, #d97706);
+}
+
+.progress-bar-fat {
+  background: linear-gradient(90deg, #f43f5e, #be123c);
+}
+
+.progress-bar-water {
+  background: linear-gradient(90deg, #06b6d4, #0284c7);
+}
+
+/* Food Scan Dropzone */
+.scan-dropzone {
+  border: 2px dashed #10b981;
+  background: var(--pnmp-primary-light);
+  border-radius: var(--pnmp-radius);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scan-dropzone:hover, .scan-dropzone.dragover {
+  border-color: #059669;
+  background: #d1fae5;
+  transform: scale(1.01);
+}
+
+.scan-preview-img {
+  max-height: 280px;
+  max-width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: var(--pnmp-shadow);
+}
+
+/* Quick Action Buttons */
+.quick-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  border-radius: var(--pnmp-radius);
+  border: 1px solid var(--pnmp-border);
+  background: var(--pnmp-card-bg);
+  color: var(--pnmp-slate);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.15s ease-in-out;
+}
+
+.quick-action-btn i {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pnmp-shadow);
+  border-color: var(--pnmp-primary);
+  color: var(--pnmp-primary);
+}
+
+/* Pulse / Loading Animation */
+@keyframes pnmp-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.ai-pulse-anim {
+  animation: pnmp-pulse 1.8s infinite ease-in-out;
+}
+
+/* Custom Buttons */
+.btn-primary {
+  background-color: var(--pnmp-primary);
+  border-color: var(--pnmp-primary);
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--pnmp-primary-hover);
+  border-color: var(--pnmp-primary-hover);
+}
+
+.btn-outline-primary {
+  color: var(--pnmp-primary);
+  border-color: var(--pnmp-primary);
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--pnmp-primary);
+  border-color: var(--pnmp-primary);
+  color: #fff;
+}
+
+/* Toast container */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1090;
+}

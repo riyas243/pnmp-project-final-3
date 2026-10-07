@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Family & Household Accounts - PNMP Health{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-12">
+    <div class="pnmp-card shadow-sm border">
+      <div class="pnmp-card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div>
+          <h4 class="fw-bold mb-1 text-dark d-flex align-items-center gap-2">
+            <i class="bi bi-people-fill text-primary"></i> Family & Household Profiles
+          </h4>
+          <p class="text-muted small mb-0">Manage individual nutritional targets and meal diaries for every family member.</p>
+        </div>
+        <div>
+          <button class="btn btn-primary btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+            <i class="bi bi-person-plus-fill me-1"></i> Add Family Member
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Family Member Cards Grid -->
+<div class="row g-4">
+  {% for card in member_cards %}
+    {% set m = card.member %}
+    {% set p = card.profile %}
+    {% set t = card.targets %}
+    {% set is_active = (current_member and current_member.id == m.id) %}
+
+    <div class="col-md-6 col-lg-4">
+      <div class="pnmp-card h-100 {% if is_active %}border-success shadow{% endif %}">
+        <div class="pnmp-card-header bg-light-subtle d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-person-circle fs-5 {% if is_active %}text-success{% else %}text-muted{% endif %}"></i>
+            <h6 class="mb-0 fw-bold text-dark">{{ m.name }}</h6>
+          </div>
+          <div>
+            {% if m.is_primary %}
+              <span class="badge bg-primary-subtle text-primary border border-primary-subtle fs-8">Primary Account</span>
+            {% else %}
+              <span class="badge bg-light text-muted border fs-8">{{ m.relationship }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="pnmp-card-body d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between text-muted small mb-3 border-bottom pb-2">
+              <span>{{ p.age }} yrs &bull; {{ p.gender }}</span>
+              <span>{{ p.height_cm }} cm &bull; {{ p.weight_kg }} kg</span>
+            </div>
+
+            <!-- Targets Mini Grid -->
+            <div class="row g-2 text-center mb-3">
+              <div class="col-4">
+                <div class="border rounded p-2 bg-light-subtle">
+                  <div class="text-muted fs-8 fw-semibold text-uppercase">BMI</div>
+                  <div class="fw-bold text-dark">{{ t.bmi }}</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="border rounded p-2 bg-light-subtle">
+                  <div class="text-muted fs-8 fw-semibold text-uppercase">TDEE</div>
+                  <div class="fw-bold text-dark">{{ t.tdee }}</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="border rounded p-2 bg-success-subtle border-success-subtle">
+                  <div class="text-success fs-8 fw-semibold text-uppercase">Target</div>
+                  <div class="fw-bold text-success">{{ t.target_calories }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="small mb-2">
+              <span class="text-muted">Diet:</span> <strong class="text-dark">{{ p.dietary_preference }}</strong>
+            </div>
+            <div class="small mb-3">
+              <span class="text-muted">Goal:</span> <span class="badge bg-light text-dark border">{{ p.fitness_goal }}</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-top d-flex gap-2">
+            {% if is_active %}
+              <button class="btn btn-success btn-sm w-100 fw-semibold" disabled>
+                <i class="bi bi-check2-circle me-1"></i> Active Profile
+              </button>
+            {% else %}
+              <button class="btn btn-outline-success btn-sm w-100 fw-semibold" onclick="switchFamilyMember({{ m.id }})">
+                Switch to this Profile
+              </button>
+            {% endif %}
+
+            {% if not m.is_primary %}
+              <form method="POST" action="{{ url_for('family') }}" onsubmit="return confirm('Remove family profile for {{ m.name }}?');">
+                <input type="hidden" name="action" value="delete_member">
+                <input type="hidden" name="member_id" value="{{ m.id }}">
+                <button type="submit" class="btn btn-outline-danger btn-sm" title="Remove Profile">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Modal: Add Family Member -->
+<div class="modal fade" id="addMemberModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form method="POST" action="{{ url_for('family') }}">
+        <input type="hidden" name="action" value="add_member">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="bi bi-person-plus-fill text-primary me-2"></i>Add Family Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label small text-muted">Full Name</label>
+            <input type="text" class="form-control" name="name" placeholder="e.g. Sarah" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Relationship to You</label>
+            <select class="form-select" name="relationship">
+              <option value="Spouse">Spouse</option>
+              <option value="Child">Child</option>
+              <option value="Parent">Parent</option>
+              <option value="Sibling">Sibling</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-4">
+              <label class="form-label small text-muted">Age</label>
+              <input type="number" class="form-control" name="age" value="25" min="5" max="110" required>
+            </div>
+            <div class="col-4">
+              <label class="form-label small text-muted">Gender</label>
+              <select class="form-select" name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="col-4">
+              <label class="form-label small text-muted">Goal</label>
+              <select class="form-select" name="fitness_goal">
+                <option value="Weight Loss">Weight Loss</option>
+                <option value="Weight Maintenance" selected>Maintain</option>
+                <option value="Weight Gain">Gain</option>
+              </select>
+            </div>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label small text-muted">Height (cm)</label>
+              <input type="number" step="0.5" class="form-control" name="height_cm" value="165" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label small text-muted">Weight (kg)</label>
+              <input type="number" step="0.1" class="form-control" name="weight_kg" value="62" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Dietary Preference</label>
+            <select class="form-select" name="dietary_preference">
+              <option value="Vegetarian" selected>Vegetarian</option>
+              <option value="Non-Vegetarian">Non-Vegetarian</option>
+              <option value="Vegan">Vegan</option>
+              <option value="Eggetarian">Eggetarian</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm fw-semibold">Create Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
